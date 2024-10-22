@@ -6,7 +6,7 @@ using TaskCheck.Domain.Shared;
 
 namespace TaskCheck.Application.Users.Commands.Login;
 
-internal sealed class LoginUserCommandHandler: IRequestHandler<LoginUserCommand, Result<LoginResponse>>
+internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<LoginResponse>>
 {
     private readonly IIdentityService _identityService;
     private readonly IUserRepository _userRepository;

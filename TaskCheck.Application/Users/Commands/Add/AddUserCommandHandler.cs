@@ -30,6 +30,9 @@ internal sealed class AddUserCommandHandler : IRequestHandler<AddUserCommand, Re
         await _userRepository.AddAsync(user, cancellationToken);
 
         var applicationUser = new ApplicationUser() { Id = user.Id.ToString(), Email = user.Email, UserName = user.Username };
+        
+        var existingUser = await _userRepository.ExistsAsync(user.Username, user.Email, cancellationToken);
+
         await _identityService.CreateUserAsync(applicationUser, request.Password, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

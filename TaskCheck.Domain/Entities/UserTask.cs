@@ -14,6 +14,8 @@ public class UserTask: BaseEntity
 
     public bool IsCompleted { get; set; }
 
+    public bool IsImportant { get; set; }
+
     public Guid? CategoryId { get; set; }
 
 }
