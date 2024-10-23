@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using TaskCheck.Application.Abstractions.Data;
-using TaskCheck.Application.Tasks.DTO;
 using TaskCheck.Domain.Entities;
 using TaskCheck.Domain.Repository;
 using TaskCheck.Domain.Shared;
@@ -13,11 +12,11 @@ internal sealed class AddUserTaskCommandHandler : IRequestHandler<AddUserTaskCom
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AddUserTaskCommandHandler(ITaskRepository taskRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
+    public AddUserTaskCommandHandler(ITaskRepository taskRepository, IUnitOfWork unitOfWork, IUserRepository userRepository)
     {
         _taskRepository = taskRepository;
-        _userRepository = userRepository;
         _unitOfWork = unitOfWork;
+        _userRepository = userRepository;
     }
 
     public async Task<Result> Handle(AddUserTaskCommand request, CancellationToken cancellationToken)
@@ -31,7 +30,8 @@ internal sealed class AddUserTaskCommandHandler : IRequestHandler<AddUserTaskCom
             CreationDate = request.DueDate,
             IsCompleted = request.IsCompleted,
             IsImportant = request.IsImportant,
-            CategoryId = request.CategoryId
+            CategoryId = request.CategoryId,
+            User = await _userRepository.GetByIdAsync(request.UserId, cancellationToken)
         };
 
         await _taskRepository.AddAsync(task, cancellationToken);

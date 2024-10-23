@@ -21,5 +21,9 @@ public interface IUserRepository: IRepository<User>
         string username,
         string email,
         CancellationToken cancellationToken = default);
+
+    Task<User> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
 }
 

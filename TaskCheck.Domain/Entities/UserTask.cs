@@ -18,5 +18,7 @@ public class UserTask: BaseEntity
 
     public Guid? CategoryId { get; set; }
 
+    public User User { get; set; }
+
 }
 

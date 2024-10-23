@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using TaskCheck.Application.Tasks.DTO;
 using TaskCheck.Domain.Shared;
 
 namespace TaskCheck.Application.Tasks.Commands.Add;
@@ -12,6 +11,7 @@ public sealed record AddUserTaskCommand(
     DateTime CreationDate,
     bool IsCompleted,
     bool IsImportant,
-    Guid? CategoryId
+    Guid? CategoryId,
+    Guid UserId
     ) : IRequest<Result>;
 

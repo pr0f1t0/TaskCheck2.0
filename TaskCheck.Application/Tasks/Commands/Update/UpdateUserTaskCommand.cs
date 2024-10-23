@@ -11,6 +11,7 @@ public sealed record UpdateUserTaskCommand
     DateTime CreationDate,
     bool IsCompleted,
     bool IsImportant,
-    Guid? CategoryId
+    Guid? CategoryId,
+    Guid UserId
 ): IRequest<Result>;
 
