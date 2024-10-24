@@ -4,6 +4,7 @@ using TaskCheck.Application.Abstractions.Identity;
 using TaskCheck.Application.Users.DTO;
 using TaskCheck.Application.Users.Identity;
 using TaskCheck.Domain.Entities;
+using TaskCheck.Domain.Errors;
 using TaskCheck.Domain.Repository;
 using TaskCheck.Domain.Shared;
 
@@ -26,15 +27,18 @@ internal sealed class AddUserCommandHandler : IRequestHandler<AddUserCommand, Re
 
     public async Task<Result<RegisterResponse>> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
-        var user = new User() {Username = request.Username, FirstName = request.FirstName, Email = request.Email };      
+        var user = new User() {Username = request.Username, FirstName = request.FirstName, Email = request.Email };    
+        
+        if(await _userRepository.ExistsAsync(user.Username, user.Email, cancellationToken))
+        {
+            return Result.Failure<RegisterResponse>(UserErrors.Exists);
+        }
+
         await _userRepository.AddAsync(user, cancellationToken);
 
         var applicationUser = new ApplicationUser() { Id = user.Id.ToString(), Email = user.Email, UserName = user.Username };
         
-        var existingUser = await _userRepository.ExistsAsync(user.Username, user.Email, cancellationToken);
-
         await _identityService.CreateUserAsync(applicationUser, request.Password, cancellationToken);
-
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         var accessToken = _tokenService.GenerateToken(user);

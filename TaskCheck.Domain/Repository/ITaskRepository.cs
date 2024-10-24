@@ -5,6 +5,6 @@ namespace TaskCheck.Domain.Repository;
 
 public interface ITaskRepository: IRepository<UserTask>
 {
-
+    
 }
 
