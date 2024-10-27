@@ -17,8 +17,4 @@
     <ProjectReference Include="..\TaskCheck.Domain\TaskCheck.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Categories\Commands\" />
-  </ItemGroup>
-
 </Project>

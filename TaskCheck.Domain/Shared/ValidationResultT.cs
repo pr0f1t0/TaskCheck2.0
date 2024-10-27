@@ -1,6 +1,6 @@
 ﻿namespace TaskCheck.Domain.Shared;
 
-internal class ValidationResult<TValue>: Result<TValue>, IValidationResult
+public sealed class ValidationResult<TValue>: Result<TValue>, IValidationResult
 {
     private ValidationResult(Error[] errors) : base(
         value: default,
