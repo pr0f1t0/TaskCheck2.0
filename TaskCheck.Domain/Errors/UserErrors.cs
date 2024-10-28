@@ -6,7 +6,7 @@ public static class UserErrors
     public static readonly Error NotFound = Error.NotFound
         (
         code: "user_not_found", 
-        description: "User not found."
+        description: "User cannot be found."
         );
 
     public static readonly Error Exists = Error.Validation

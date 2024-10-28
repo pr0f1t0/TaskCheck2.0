@@ -7,7 +7,7 @@ public static class TaskErrors
     public static readonly Error NotFound = Error.NotFound
         (
         code: "task_not_found",
-        description: "Task not found."
+        description: "Task cannot be found."
         );
 
 }
