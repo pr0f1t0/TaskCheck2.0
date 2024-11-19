@@ -7,13 +7,13 @@ public interface IRepository<TEntity>
 {
     Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    Task UpdateAsync(TEntity oldEntity, TEntity newEntity, CancellationToken cancellationToken = default);
+    Task UpdateAsync(TEntity entity);
 
     Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetByIdAsync(Guid id);
+    Task<TEntity> GetByIdAsync(Guid? id);
 
-    Task<bool> ExistsAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task<IEnumerable<TEntity>> GetAllAsync();
 }

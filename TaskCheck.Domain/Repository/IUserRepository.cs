@@ -5,13 +5,7 @@ namespace TaskCheck.Domain.Repository;
 
 public interface IUserRepository: IRepository<User>
 {
-    Task DeleteAsync(User user);
-
     Task UpdateAsync(User user);
-
-    Task<bool> ExistsAsync(
-        Guid userId,
-        CancellationToken cancellationToken = default);
 
     Task<bool> ExistsAsync(
         string username,
@@ -22,8 +16,5 @@ public interface IUserRepository: IRepository<User>
         string email,
         CancellationToken cancellationToken = default);
 
-    Task<User> GetByIdAsync(
-        Guid id,
-        CancellationToken cancellationToken = default);
 }
 
