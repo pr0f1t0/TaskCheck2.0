@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TaskCheck.Domain.Entities;
 using TaskCheck.Domain.Repository;
 

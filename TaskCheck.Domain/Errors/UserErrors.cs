@@ -15,5 +15,16 @@ public static class UserErrors
         description: "This user is already registered"
         );
 
+    public static readonly Error InvalidAccessToken = Error.Validation
+       (
+       code: "User.InvalidAccessToken",
+       description: "Access token is invalid."
+       );
+
+    public static readonly Error InvalidCredentials = Error.Validation
+        (
+        code: "User.InvalidCredentials",
+        description: "Credentials are invalid"
+        );
 }
 
