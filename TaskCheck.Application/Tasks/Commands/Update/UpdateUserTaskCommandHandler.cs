@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.VisualBasic;
 using TaskCheck.Application.Abstractions.Data;
 using TaskCheck.Domain.Entities;
 using TaskCheck.Domain.Errors;
@@ -9,14 +10,12 @@ namespace TaskCheck.Application.Tasks.Commands.Update;
 internal sealed class UpdateUserTaskCommandHandler : IRequestHandler<UpdateUserTaskCommand, Result>
 {
     private readonly ITaskRepository _taskRepository;
-    private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public UpdateUserTaskCommandHandler(ITaskRepository taskRepository, IUnitOfWork unitOfWork, IUserRepository userRepository)
     {
         _taskRepository = taskRepository;
         _unitOfWork = unitOfWork;
-        _userRepository = userRepository;
     }
 
     public async Task<Result> Handle(UpdateUserTaskCommand request, CancellationToken cancellationToken)
@@ -28,20 +27,16 @@ internal sealed class UpdateUserTaskCommandHandler : IRequestHandler<UpdateUserT
             return Result.Failure(TaskErrors.NotFound);
         }
 
-        var updatedTask = new UserTask()
-        {
-            Id = request.Id,
-            Title = request.Title,
-            Details = request.Details,
-            DueDate = request.DueDate,
-            CreationDate = request.CreationDate,
-            IsCompleted = request.IsCompleted,
-            IsImportant = request.IsImportant,
-            CategoryId = request.CategoryId,
-            User = await _userRepository.GetByIdAsync(request.UserId, cancellationToken)
-        };
+        task.Title = request.Title;
+        task.Details = request.Details;
+        task.DueDate = request.DueDate;
+        task.CreationDate = request.CreationDate;
+        task.IsCompleted = request.IsCompleted;
+        task.IsImportant = request.IsImportant;
+        task.Category = request.Category;
 
-        await _taskRepository.UpdateAsync(task, updatedTask, cancellationToken);
+        await _taskRepository.UpdateAsync(task);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }

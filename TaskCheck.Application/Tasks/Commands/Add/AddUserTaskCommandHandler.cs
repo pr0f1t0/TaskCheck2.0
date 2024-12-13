@@ -30,7 +30,7 @@ internal sealed class AddUserTaskCommandHandler : IRequestHandler<AddUserTaskCom
             CreationDate = request.DueDate,
             IsCompleted = request.IsCompleted,
             IsImportant = request.IsImportant,
-            CategoryId = request.CategoryId,
+            Category = request.Category,
             User = await _userRepository.GetByIdAsync(request.UserId, cancellationToken)
         };
 

@@ -16,7 +16,7 @@ public class UserTask: BaseEntity
 
     public bool IsImportant { get; set; }
 
-    public Guid? CategoryId { get; set; }
+    public Category? Category { get; set; }
 
     public User User { get; set; }
 

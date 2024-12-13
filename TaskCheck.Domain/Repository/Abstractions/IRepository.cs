@@ -11,7 +11,7 @@ public interface IRepository<TEntity>
 
     Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetByIdAsync(Guid? id);
+    Task<TEntity> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default);
 
     Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);
 

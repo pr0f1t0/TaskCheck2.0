@@ -8,11 +8,13 @@ namespace TaskCheck.Application.Categories.Commands.Add;
 internal sealed class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, Result>
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AddCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+    public AddCategoryCommandHandler(ICategoryRepository categoryRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
     {
         _categoryRepository = categoryRepository;
+        _userRepository = userRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -21,6 +23,7 @@ internal sealed class AddCategoryCommandHandler : IRequestHandler<AddCategoryCom
         var category = new Category() 
         {
             Id = request.Id,
+            User = await _userRepository.GetByIdAsync(request.UserId),
             Title = request.Title
         };
 

@@ -6,6 +6,8 @@ public class Category: BaseEntity
 {
     public string Title { get; set; }
 
-    public IEnumerable<UserTask>? UserTasks { get; set; }
+    public User User { get; set; }
+
+    public ICollection<UserTask>? UserTasks { get; set; }
 }
 

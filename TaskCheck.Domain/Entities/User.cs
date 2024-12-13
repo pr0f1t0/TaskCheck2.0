@@ -10,8 +10,8 @@ public class User: BaseEntity
 
     public string Email { get; set; }
 
-    public IEnumerable<UserTask>? Tasks { get; set; }
+    public ICollection<UserTask>? Tasks { get; set; }
 
-    public IEnumerable<Category>? Categories { get; set; }
+    public ICollection<Category>? Categories { get; set; }
 }
 

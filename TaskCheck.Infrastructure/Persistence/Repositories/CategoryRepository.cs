@@ -27,9 +27,9 @@ internal sealed class CategoryRepository : ICategoryRepository
         return await _context.Categories.ToListAsync();
     }
 
-    public async Task<Category> GetByIdAsync(Guid? id)
+    public async Task<Category> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default)
     {
-        return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
     public Task RemoveAsync(Category category, CancellationToken cancellationToken)

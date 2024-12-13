@@ -27,9 +27,9 @@ internal sealed class TaskRepository : ITaskRepository
         return await _context.UserTasks.ToListAsync();
     }
 
-    public async Task<UserTask> GetByIdAsync(Guid? id)
+    public async Task<UserTask> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default)
     {
-        return await _context.UserTasks.FirstOrDefaultAsync(c => c.Id == id);
+        return await _context.UserTasks.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
     public Task RemoveAsync(UserTask userTask, CancellationToken cancellationToken = default)

@@ -6,6 +6,7 @@ namespace TaskCheck.Application.Categories.Commands.Add;
 public sealed record AddCategoryCommand
 (
     Guid Id,
+    Guid UserId,
     string Title
 ) : IRequest<Result>;
 

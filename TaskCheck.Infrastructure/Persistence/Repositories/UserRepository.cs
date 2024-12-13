@@ -43,9 +43,9 @@ internal sealed class UserRepository : IUserRepository
         return await _context.Users.ToListAsync();
     }
 
-    public async Task<User> GetByIdAsync(Guid? id)
+    public async Task<User> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default)
     {
-        return await _context.Users.FirstOrDefaultAsync(t => t.Id == id);
+        return await _context.Users.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 
     public Task RemoveAsync(User user, CancellationToken cancellationToken = default)
