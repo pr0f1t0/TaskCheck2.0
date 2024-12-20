@@ -4,7 +4,9 @@ import com.pr0f1t.TaskCheck.domain.dto.UserDto;
 import com.pr0f1t.TaskCheck.domain.entity.User;
 import com.pr0f1t.TaskCheck.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapperImpl implements Mapper<User, UserDto> {
 
     private ModelMapper modelMapper;

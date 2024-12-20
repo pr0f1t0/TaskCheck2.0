@@ -4,7 +4,9 @@ import com.pr0f1t.TaskCheck.domain.dto.CategoryDto;
 import com.pr0f1t.TaskCheck.domain.entity.Category;
 import com.pr0f1t.TaskCheck.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryMapperImpl implements Mapper<Category, CategoryDto> {
 
     private ModelMapper modelMapper;

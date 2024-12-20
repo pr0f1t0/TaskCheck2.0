@@ -1,11 +1,13 @@
 package com.pr0f1t.TaskCheck.service.read;
 
 import com.pr0f1t.TaskCheck.domain.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public interface UserReadService {
     Optional<User> getUserById(UUID id);
 
@@ -13,7 +15,6 @@ public interface UserReadService {
 
     List<User> getAllUsers();
 
-    boolean isExists(UUID id);
+    boolean exists(UUID id);
 
-    boolean isExists(String username);
 }

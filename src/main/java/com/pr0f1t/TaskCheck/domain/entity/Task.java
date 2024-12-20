@@ -28,9 +28,9 @@ public class Task {
 
     public LocalDateTime DueDate;
 
-    public boolean IsCompleted;
+    public boolean Completed;
 
-    public boolean IsImportant;
+    public boolean Important;
 
     @ManyToOne(targetEntity = Category.class, optional = true)
     public Category Category;
