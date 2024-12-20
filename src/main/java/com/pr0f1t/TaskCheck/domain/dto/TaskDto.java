@@ -1,8 +1,5 @@
-package com.pr0f1t.TaskCheck.domain.entity;
+package com.pr0f1t.TaskCheck.domain.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +9,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Entity(name = "tasks")
-public class Task {
-    @Id
+
+public class TaskDto {
     public UUID Id;
 
     public String Title;
@@ -32,9 +28,8 @@ public class Task {
 
     public boolean IsImportant;
 
-    @ManyToOne(targetEntity = Category.class, optional = true)
-    public Category Category;
+    public CategoryDto Category;
 
-    @ManyToOne(targetEntity = User.class, optional = false)
-    public User User;
+    public UserDto User;
+
 }
