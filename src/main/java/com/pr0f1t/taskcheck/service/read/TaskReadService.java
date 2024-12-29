@@ -12,4 +12,6 @@ public interface TaskReadService {
     Optional<Task> getTaskById(UUID id);
 
     List<Task> getAllTasks();
+
+    boolean exists(UUID id);
 }

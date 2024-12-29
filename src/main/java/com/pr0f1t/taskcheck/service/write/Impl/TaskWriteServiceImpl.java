@@ -40,10 +40,4 @@ public class TaskWriteServiceImpl implements TaskWriteService {
         taskRepository.deleteById(id);
     }
 
-    @Override
-    public boolean exists(UUID id) {
-        return taskRepository.existsById(id);
-    }
-
-
 }

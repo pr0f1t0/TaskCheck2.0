@@ -10,7 +10,9 @@ public interface UserWriteService {
 
     User addUser(User user);
 
-    User updateUser(User user);
+    User partialUpdateUser(User user);
 
     void deleteUserById(UUID id);
+
+    boolean exists(UUID id);
 }

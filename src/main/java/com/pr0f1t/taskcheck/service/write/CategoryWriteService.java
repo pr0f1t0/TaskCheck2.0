@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface CategoryWriteService {
     Category addCategory(Category category);
 
-    Category updateCategory(Category category);
+    Category partialUpdateCategory(Category category);
 
     void deleteCategoryById(UUID id);
 }

@@ -13,5 +13,4 @@ public interface TaskWriteService {
 
     void deleteTaskById(UUID id);
 
-    boolean exists(UUID id);
 }

@@ -22,12 +22,17 @@ public class UserWriteServiceImpl implements UserWriteService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User partialUpdateUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
     public void deleteUserById(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean exists(UUID id) {
+        return userRepository.existsById(id);
     }
 }

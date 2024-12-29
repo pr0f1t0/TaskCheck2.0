@@ -52,20 +52,20 @@ public class TaskController {
 
     @PatchMapping(path = "/tasks/{id}")
     public ResponseEntity<TaskDto> partialUpdateTask(@PathVariable UUID id, @RequestBody TaskDto taskDto) {
-        Task updates = taskMapper.mapFrom(taskDto);
+        Task taskUpdates = taskMapper.mapFrom(taskDto);
 
-        if (!taskWriteService.exists(id)) {
+        if (!taskReadService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Task updatedTask = taskWriteService.partialUpdateTask(id, updates);
+        Task updatedTask = taskWriteService.partialUpdateTask(id, taskUpdates);
 
         return new ResponseEntity<>(taskMapper.mapTo(updatedTask), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable UUID id) {
-        if (!taskWriteService.exists(id)) {
+        if (!taskReadService.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

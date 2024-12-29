@@ -22,7 +22,7 @@ public class CategoryWriteServiceImpl implements CategoryWriteService {
     }
 
     @Override
-    public Category updateCategory(Category category) {
+    public Category partialUpdateCategory(Category category) {
         return categoryRepository.save(category);
     }
 

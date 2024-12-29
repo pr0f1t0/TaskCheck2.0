@@ -29,4 +29,11 @@ public class TaskReadServiceImpl implements TaskReadService {
         return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
                 .toList();
     }
+
+    @Override
+    public boolean exists(UUID id) {
+        return taskRepository.existsById(id);
+    }
+
+
 }
