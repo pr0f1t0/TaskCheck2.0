@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -16,17 +17,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
-    @Setter
     public String name;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @Setter
     public User user;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Setter
     public List<Task> tasks;
 
 

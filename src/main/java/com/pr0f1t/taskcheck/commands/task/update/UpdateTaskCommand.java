@@ -1,16 +1,17 @@
 package com.pr0f1t.taskcheck.commands.task.update;
 
-import com.pr0f1t.taskcheck.domain.dto.CategoryDto;
-import com.pr0f1t.taskcheck.domain.dto.UserDto;
 
-import java.time.LocalDateTime;
+import com.pr0f1t.taskcheck.domain.dto.TaskDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public record UpdateTaskCommand(
-        String title,
-        String description,
-        LocalDateTime dueDate,
-        boolean completed,
-        boolean important,
-        CategoryDto category,
-        UserDto user
-) {}
+import java.util.UUID;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateTaskCommand{
+        private TaskDto taskDto;
+        private UUID id;
+}

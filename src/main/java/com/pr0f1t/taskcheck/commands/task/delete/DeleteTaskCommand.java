@@ -1,7 +1,14 @@
 package com.pr0f1t.taskcheck.commands.task.delete;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
-public record DeleteTaskCommand(
-    UUID id
-) {}
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class DeleteTaskCommand{
+    UUID id;
+}

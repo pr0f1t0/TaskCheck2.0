@@ -20,9 +20,9 @@ public class TaskDto {
 
     public LocalDateTime dueDate;
 
-    public boolean isCompleted;
+    public boolean completed;
 
-    public boolean isImportant;
+    public boolean important;
 
     public CategoryDto category;
 

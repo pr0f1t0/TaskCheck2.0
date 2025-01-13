@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,29 +17,22 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
-    @Setter
     public String title;
 
-    @Setter
     public String description;
 
     public LocalDateTime createdAt;
 
-    @Setter
     public LocalDateTime dueDate;
 
-    @Setter
     public boolean completed;
 
-    @Setter
     public boolean important;
 
-    @Setter
     @ManyToOne(targetEntity = Category.class, optional = true)
     @JoinColumn(name = "category_id")
     public Category category;
 
-    @Setter
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "user_id")
     public User user;
