@@ -3,8 +3,11 @@ package com.pr0f1t.taskcheck.commands.user.add;
 import com.pr0f1t.taskcheck.commands.abstractions.Command;
 import com.pr0f1t.taskcheck.domain.dto.UserDto;
 import com.pr0f1t.taskcheck.domain.entity.User;
+import com.pr0f1t.taskcheck.exceptions.user.UserExistsException;
+import com.pr0f1t.taskcheck.exceptions.errorMessages.UserErrorMessages;
 import com.pr0f1t.taskcheck.mappers.Mapper;
 import com.pr0f1t.taskcheck.repository.UserRepository;
+import com.pr0f1t.taskcheck.validators.UserValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,12 @@ public class AddUserService implements Command<AddUserCommand, UserDto> {
     }
 
     public ResponseEntity<UserDto> execute(AddUserCommand command) {
+
+        if(userRepository.existsByUsername(command.getUsername())) {
+            throw new UserExistsException(UserErrorMessages.USER_ALREADY_EXISTS.getMessage());
+        }
+
+        UserValidator.execute(command);
 
         UserDto userDto = UserDto.builder()
                 .username(command.getUsername())

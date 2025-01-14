@@ -1,6 +1,8 @@
 package com.pr0f1t.taskcheck.commands.user.delete;
 
 import com.pr0f1t.taskcheck.commands.abstractions.Command;
+import com.pr0f1t.taskcheck.exceptions.errorMessages.UserErrorMessages;
+import com.pr0f1t.taskcheck.exceptions.user.UserNotFoundException;
 import com.pr0f1t.taskcheck.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,13 @@ public class DeleteUserService implements Command<DeleteUserCommand, Void> {
 
     public ResponseEntity<Void> execute(DeleteUserCommand command) {
 
-        if (userRepository.existsById(command.getId())) {
-            userRepository.deleteById(command.getId());
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (!userRepository.existsById(command.getId())) {
+            throw new UserNotFoundException(UserErrorMessages.USER_NOT_FOUND.getMessage());
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        userRepository.deleteById(command.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 }

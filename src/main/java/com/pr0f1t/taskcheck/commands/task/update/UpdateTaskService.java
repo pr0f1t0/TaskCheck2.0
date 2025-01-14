@@ -3,6 +3,8 @@ package com.pr0f1t.taskcheck.commands.task.update;
 import com.pr0f1t.taskcheck.commands.abstractions.Command;
 import com.pr0f1t.taskcheck.domain.dto.TaskDto;
 import com.pr0f1t.taskcheck.domain.entity.Task;
+import com.pr0f1t.taskcheck.exceptions.errorMessages.TaskErrorMessages;
+import com.pr0f1t.taskcheck.exceptions.task.TaskNotFoundException;
 import com.pr0f1t.taskcheck.mappers.Mapper;
 import com.pr0f1t.taskcheck.repository.TaskRepository;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class UpdateTaskService implements Command<UpdateTaskCommand, TaskDto> {
             Task savedTaskUpdates = taskRepository.save(updatedTask);
             return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(savedTaskUpdates));
         }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new TaskNotFoundException(TaskErrorMessages.TASK_NOT_FOUND.getMessage());
         }
 
     }

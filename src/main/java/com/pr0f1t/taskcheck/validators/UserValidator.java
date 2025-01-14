@@ -12,7 +12,7 @@ public class UserValidator {
     private UserValidator() {
     }
 
-    public static void validate(AddUserCommand command) {
+    public static void execute(AddUserCommand command) {
 
         if (!command.getPassword().matches(PASSWORD_PATTERN)) {
             throw new UserNotValidException(UserErrorMessages.USER_PASSWORD_NOT_VALID.getMessage());

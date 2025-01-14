@@ -3,6 +3,8 @@ package com.pr0f1t.taskcheck.commands.category.update;
 import com.pr0f1t.taskcheck.commands.abstractions.Command;
 import com.pr0f1t.taskcheck.domain.dto.CategoryDto;
 import com.pr0f1t.taskcheck.domain.entity.Category;
+import com.pr0f1t.taskcheck.exceptions.category.CategoryNotFoundException;
+import com.pr0f1t.taskcheck.exceptions.errorMessages.CategoryErrorMessages;
 import com.pr0f1t.taskcheck.mappers.Mapper;
 import com.pr0f1t.taskcheck.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
@@ -34,7 +36,7 @@ public class UpdateCategoryService implements Command<UpdateCategoryCommand, Cat
 
             return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(savedCategoryUpdates));
         }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new CategoryNotFoundException(CategoryErrorMessages.CATEGORY_NOT_FOUND.getMessage());
         }
     }
 
