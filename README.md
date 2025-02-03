@@ -24,7 +24,6 @@ To run the API, you need [Docker](https://www.docker.com/get-started/) installed
 Before running the application, please ensure that the following ports are available and not occupied:
 
 - `8080` for the backend
-- `4200` for the client
 - `5432` for the database
 
 ### Running
