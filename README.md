@@ -16,7 +16,7 @@ To get started, you can either install or clone this repository on your local ma
 To clone the repository using Git, run the following command in your terminal:
 
 ```bash
-git clone https://github.com/yourusername/TaskCheck2.0.git
+git clone https://github.com/pr0f1t0/TaskCheck2.0.git
 ```
 ## Running the application
 ### Prerequisites
@@ -32,5 +32,5 @@ Go to /repository-path/ and execute the following command:
 docker compose up -d --build
 ```
 ### Accessing
-After running the API, you will be able to access the Swagger UI:
-[http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/)
+After running the API, you will be able to access the [Swagger UI](http://localhost:8080/swagger-ui/index.html#/):
+`http://localhost:8080/swagger-ui/index.html#/`
