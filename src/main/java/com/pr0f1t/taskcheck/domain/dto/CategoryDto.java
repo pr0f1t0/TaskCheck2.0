@@ -1,12 +1,12 @@
 package com.pr0f1t.taskcheck.domain.dto;
 
-import com.pr0f1t.taskcheck.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -14,9 +14,11 @@ import java.util.List;
 @Builder
 public class CategoryDto {
 
+    public UUID id;
+
     public String name;
 
-    public User user;
+    public UUID userId;
 
     public List<TaskDto> tasks;
 

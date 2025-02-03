@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UpdateCategoryService implements Command<UpdateCategoryCommand, CategoryDto> {
@@ -27,17 +26,14 @@ public class UpdateCategoryService implements Command<UpdateCategoryCommand, Cat
 
     public ResponseEntity<CategoryDto> execute(UpdateCategoryCommand command) {
 
-        Optional<Category> categoryOptional = categoryRepository.findById(command.getId());
+        Category category = categoryRepository.findById(command.getId())
+                .orElseThrow(() -> new CategoryNotFoundException(CategoryErrorMessages.CATEGORY_NOT_FOUND.getMessage()));
 
-        if(categoryOptional.isPresent()){
-            Category updatedCategory = mapper.mapFrom(command.getCategoryDto());
-            updatedCategory.setId(command.getId());
-            Category savedCategoryUpdates = categoryRepository.save(updatedCategory);
+        Category updatedCategory = mapper.mapFrom(command.getCategoryDto());
+        updatedCategory.setId(command.getId());
+        Category saved = categoryRepository.save(updatedCategory);
 
-            return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(savedCategoryUpdates));
-        }else {
-            throw new CategoryNotFoundException(CategoryErrorMessages.CATEGORY_NOT_FOUND.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(saved));
     }
 
 }

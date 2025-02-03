@@ -23,9 +23,7 @@ public class Category {
     @JoinColumn(name = "user_id")
     public User user;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<Task> tasks;
-
-
 
 }

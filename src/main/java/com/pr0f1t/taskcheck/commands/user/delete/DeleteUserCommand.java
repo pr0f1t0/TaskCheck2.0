@@ -12,5 +12,4 @@ import java.util.UUID;
 @NoArgsConstructor
 public class DeleteUserCommand{
         private UUID id;
-
 }

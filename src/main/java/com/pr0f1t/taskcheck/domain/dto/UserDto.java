@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +18,4 @@ public class UserDto {
 
     public String email;
 
-    public List<TaskDto> tasks;
-
-    public List<CategoryDto> categories;
 }

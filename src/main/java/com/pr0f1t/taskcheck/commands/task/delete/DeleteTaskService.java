@@ -11,18 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeleteTaskService implements Command<DeleteTaskCommand, Void> {
     private final TaskRepository taskRepository;
+    private final DeleteTaskCommandValidator validator;
 
-    public DeleteTaskService(TaskRepository taskRepository){
+    public DeleteTaskService(TaskRepository taskRepository, DeleteTaskCommandValidator validator) {
         this.taskRepository = taskRepository;
+        this.validator = validator;
     }
 
     public ResponseEntity<Void> execute(DeleteTaskCommand command){
+        validator.validate(command);
         if(!taskRepository.existsById(command.getId())){
             throw new TaskNotFoundException(TaskErrorMessages.TASK_NOT_FOUND.getMessage());
         }
-
         taskRepository.deleteById(command.getId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

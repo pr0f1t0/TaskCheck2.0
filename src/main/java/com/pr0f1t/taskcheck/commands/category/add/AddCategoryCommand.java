@@ -1,12 +1,14 @@
 package com.pr0f1t.taskcheck.commands.category.add;
 
-import com.pr0f1t.taskcheck.domain.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddCategoryCommand{
     private String name;
-    private User user;
 }
 
 

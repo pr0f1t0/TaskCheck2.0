@@ -25,7 +25,7 @@ public class DeleteCategoryService implements Command<DeleteCategoryCommand, Voi
 
         categoryRepository.deleteById(command.getId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

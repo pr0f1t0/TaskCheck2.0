@@ -1,4 +1,4 @@
-package com.pr0f1t.taskcheck.commands.user.add;
+package com.pr0f1t.taskcheck.commands.user.register;
 
 import com.pr0f1t.taskcheck.commands.abstractions.Command;
 import com.pr0f1t.taskcheck.domain.dto.UserDto;
@@ -7,37 +7,39 @@ import com.pr0f1t.taskcheck.exceptions.user.UserExistsException;
 import com.pr0f1t.taskcheck.exceptions.errorMessages.UserErrorMessages;
 import com.pr0f1t.taskcheck.mappers.Mapper;
 import com.pr0f1t.taskcheck.repository.UserRepository;
-import com.pr0f1t.taskcheck.validators.UserValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddUserService implements Command<AddUserCommand, UserDto> {
+public class RegisterUserService implements Command<RegisterUserCommand, Void> {
     private final UserRepository userRepository;
     private final Mapper<User, UserDto> mapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public AddUserService(UserRepository userRepository, Mapper<User, UserDto> mapper) {
+    public RegisterUserService(UserRepository userRepository, Mapper<User, UserDto> mapper,
+                               PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
+
     }
 
-    public ResponseEntity<UserDto> execute(AddUserCommand command) {
+    public ResponseEntity<Void> execute(RegisterUserCommand command) {
 
-        if(userRepository.existsByUsername(command.getUsername())) {
+        if(userRepository.existsByEmail(command.getEmail())) {
             throw new UserExistsException(UserErrorMessages.USER_ALREADY_EXISTS.getMessage());
         }
 
-        UserValidator.execute(command);
-
         UserDto userDto = UserDto.builder()
                 .username(command.getUsername())
-                .password(command.getPassword())
+                .password(passwordEncoder.encode(command.getPassword()))
                 .email(command.getEmail())
                 .build();
 
         User user = mapper.mapFrom(userDto);
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(savedUser));
+        userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

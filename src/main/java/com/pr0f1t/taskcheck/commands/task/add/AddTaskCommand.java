@@ -1,14 +1,15 @@
 package com.pr0f1t.taskcheck.commands.task.add;
 
-import com.pr0f1t.taskcheck.domain.dto.CategoryDto;
-import com.pr0f1t.taskcheck.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddTaskCommand{
 
         private String title;
@@ -17,11 +18,9 @@ public class AddTaskCommand{
 
         private LocalDateTime dueDate;
 
-        private boolean completed;
-
         private boolean important;
 
-        private CategoryDto category;
+        private UUID categoryId;
 
-        private UserDto user;
+
 }

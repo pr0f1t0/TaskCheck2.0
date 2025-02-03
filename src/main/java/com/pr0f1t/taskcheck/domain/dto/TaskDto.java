@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -14,18 +15,22 @@ import java.time.LocalDateTime;
 
 public class TaskDto {
 
+    public UUID id;
+
     public String title;
 
     public String description;
 
     public LocalDateTime dueDate;
 
+    public LocalDateTime createdAt;
+
     public boolean completed;
 
     public boolean important;
 
-    public CategoryDto category;
+    public UUID categoryId;
 
-    public UserDto user;
+    public UUID userId;
 
 }

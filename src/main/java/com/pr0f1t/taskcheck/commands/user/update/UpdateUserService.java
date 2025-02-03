@@ -9,35 +9,34 @@ import com.pr0f1t.taskcheck.mappers.Mapper;
 import com.pr0f1t.taskcheck.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
-import java.util.Optional;
-
 
 @Service
 public class UpdateUserService implements Command<UpdateUserCommand, UserDto> {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final Mapper<User, UserDto> mapper;
 
-    public UpdateUserService(UserRepository userRepository, Mapper<User, UserDto> mapper) {
+    public UpdateUserService(UserRepository userRepository,
+                             PasswordEncoder passwordEncoder, Mapper<User, UserDto> mapper) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
     }
 
     public ResponseEntity<UserDto> execute(UpdateUserCommand command) {
-        Optional<User> userOptional = userRepository.findById(command.getId());
+        User user = userRepository.findById(command.getId())
+                .orElseThrow(() -> new UserNotFoundException(UserErrorMessages.USER_NOT_FOUND.getMessage()));
 
-        if(userOptional.isPresent()){
-            User updatedUser = mapper.mapFrom(command.getUserDto());
-            updatedUser.setId(command.getId());
-            User savedUserUpdates = userRepository.save(updatedUser);
+        UserDto userChanges = command.getUserDto();
 
-            return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(savedUserUpdates));
-        }else {
-            throw new UserNotFoundException(UserErrorMessages.USER_NOT_FOUND.getMessage());
-        }
+        user.setUsername(userChanges.getUsername());
+        user.setEmail(userChanges.getEmail());
+        user.setPassword(passwordEncoder.encode(userChanges.getPassword()));
+        User saved = userRepository.save(user);
 
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.mapTo(saved));
     }
 
 }

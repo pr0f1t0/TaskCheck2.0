@@ -37,7 +37,4 @@ public class Task {
     @JoinColumn(name = "user_id")
     public User user;
 
-    public void setCreatedAt() {
-        this.createdAt = LocalDateTime.now();
-    }
 }

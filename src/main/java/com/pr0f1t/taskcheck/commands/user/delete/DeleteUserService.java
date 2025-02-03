@@ -12,19 +12,23 @@ import org.springframework.stereotype.Service;
 public class DeleteUserService implements Command<DeleteUserCommand, Void> {
 
     private final UserRepository userRepository;
+    private final DeleteUserCommandValidator validator;
 
-    public DeleteUserService(UserRepository userRepository) {
+    public DeleteUserService(UserRepository userRepository, DeleteUserCommandValidator validator) {
         this.userRepository = userRepository;
+        this.validator = validator;
     }
 
     public ResponseEntity<Void> execute(DeleteUserCommand command) {
+
+        validator.validate(command);
 
         if (!userRepository.existsById(command.getId())) {
             throw new UserNotFoundException(UserErrorMessages.USER_NOT_FOUND.getMessage());
         }
 
         userRepository.deleteById(command.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
 
     }
 
